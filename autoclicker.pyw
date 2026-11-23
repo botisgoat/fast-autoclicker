@@ -19,6 +19,7 @@ import traceback
 HERE = os.path.dirname(os.path.abspath(__file__))
 SETTINGS_FILE = os.path.join(HERE, "settings.json")
 LOG_FILE = os.path.join(HERE, "autoclicker.log")
+ICON_FILE = os.path.join(HERE, "icon.ico")
 
 DEFAULTS = {"interval_ms": 8.0, "button": "left", "hotkey": "F6"}
 MIN_INTERVAL_MS = 1.0
@@ -265,8 +266,19 @@ def main():
     clicker.button = settings["button"]
     clicker.start_thread()
 
+    # own taskbar identity, so Windows shows our icon instead of Python's
+    try:
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
+            "FastAutoClicker.App")
+    except Exception:
+        pass
+
     root = tk.Tk()
     root.title("Fast Auto Clicker")
+    try:
+        root.iconbitmap(default=ICON_FILE)
+    except Exception:
+        pass  # icon.ico missing: keep the default Tk icon
     root.resizable(False, False)
     root.attributes("-topmost", True)
     root.report_callback_exception = log_exception
