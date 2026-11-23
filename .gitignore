@@ -1,0 +1,18 @@
+# Per-user settings, created on first run (defaults live in the script)
+settings.json
+
+# Error log
+autoclicker.log
+
+# Local notes with machine-specific paths
+README.txt
+
+# Python / OS / editor junk
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
